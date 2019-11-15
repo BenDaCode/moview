@@ -37,6 +37,9 @@ class MoviesController extends AbstractController
         ]);
     }
 
+    /**
+     * test for AJAX import of new movie
+     */
     public function import(Request $request): Response
     {
 
@@ -56,6 +59,9 @@ class MoviesController extends AbstractController
         //return new Response('Imported movie '.$movie->getMovTitle());
     }
 
+    /**
+     * add a new movies by POST
+     */
     public function new(Request $request)
     {
         $movie = new Movies();
@@ -89,5 +95,13 @@ class MoviesController extends AbstractController
         return $this->render('movies/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * list all movies in alphabetical order
+     */
+    public function list(Request $request)
+    {
+
     }
 }
