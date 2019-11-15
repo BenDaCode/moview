@@ -1,0 +1,15 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+    
+movies_show:
+    path: /movie/{id}
+    controller: App\Controller\MoviesController::index
+
+movies_import:
+    path: /import/movie
+    controller: App\Controller\MoviesController::import
+
+movies_new:
+    path: /new/movie
+    controller: App\Controller\MoviesController::new

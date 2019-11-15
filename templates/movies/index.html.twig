@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movies - {{mov_title}}{% endblock %}
+
+{% block body %}
+<h2>{{ mov_title }} ({{mov_year}})</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        This movie is rated Awesome!
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{mov_desc}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movie DB{% endblock %}
+
+{% block body %}
+<style>
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        height: 100px;
+        outline: none;
+        background-size: 100%, 100%;
+        background-image: none;
+    }
+
+    .carousel-control-next-icon:after
+    {
+        content: '>';
+        font-size: 55px;
+        color: dimgrey;
+    }
+
+    .carousel-control-prev-icon:after {
+        content: '<';
+        font-size: 55px;
+        color: dimgrey;
+    }
+</style>
+
+<div class="row">
+    <div class="col">
+        <div class="jumbotron" style="background-color:white">
+            <h1 class="display-4">Welcome to <b>MovieDB</b></h1>
+            <p class="lead">A simple movie database for everyone who loves movies!</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="row" style="margin-top:1em">
+            <div class="col-10">
+                <div id="video-carousel-example2" class="carousel slide carousel-fade" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+        
+                        <div class="carousel-item active">
+                            <div class="view" style="height:40rem">
+                                Todays featured movies
+                                <div class="mask rgba-indigo-light"></div>
+                            </div>
+                            <div class="carousel-caption">
+                                <div class="animated fadeInDown">
+                                    <h3 class="h3-responsive">Light mask</h3>
+                                    <p>First text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% for movie in movies %}
+                            <div class="carousel-item ">
+                                <div class="view">
+                                    <img class="d-block w-100" style="height:43rem;" src="{{ movie.mov_poster}}" alt="Second slide">
+                                    <div class="mask rgba-indigo-light"></div>
+                                </div>
+                        
+                                <div class="carousel-caption" style="background-color:rgba(0,0,0,0.8);border-radius:.3em;padding:2.3em;">
+                            
+                                    <div class="animated fadeInDown">
+                                        <h3 class="h3-responsive">{{ movie.mov_title }} ({{movie.mov_year}})</h3>
+                                        <p class="card-text">
+                                            <span class="oi" data-glyph="star" title="star" aria-hidden="true"></span>
+                                            <span class="oi" data-glyph="star" title="star" aria-hidden="true"></span>
+                                            <span class="oi" data-glyph="star" title="star" aria-hidden="true"></span>
+                                        </p>
+                                        <p class="card-text"><i>{{ movie.mov_desc }}</i></p>
+                                        <a href="{{ path('movies_show', {'id': movie.id}) }}" class="btn btn-primary">Go To Movie</a>
+                                    </div>
+                            
+                                </div>
+                            
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <a class="carousel-control-prev" href="#video-carousel-example2" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#video-carousel-example2" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="row" style="padding-bottom:1em">
+{% for movie in movies %}
+    <div class="col" style="margin:.5em">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ movie.mov_title }} ({{movie.mov_year}}) </h5>
+                <p class="card-text">{{ movie.mov_desc }} </p>
+                <a href="{{ path('movies_show', {'id': movie.id}) }}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+-->
+</div>
+    <button class="ajax">click me!</button>
+    <div id="ajax-results">here comes the result</div>
+    <script>
+        $(document).on('click', 'button.ajax', function(){
+            that = $(this);
+            $.ajax({
+                url:'{{ (path('movies_import')) }}',
+                type: "POST",
+                dataType: "json",
+                data: {
+                   form:"ff"
+                },
+                async: true,
+                success: function (data)
+                {
+                    console.log(data)
+                    $('div#ajax-results').html(data.output);
+
+                }
+            });
+            return false;
+
+        });
+    </script>
+{% endblock %}
